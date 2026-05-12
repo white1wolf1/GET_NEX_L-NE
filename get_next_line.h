@@ -6,13 +6,13 @@
 /*   By: asobolev <asobolev@student.42istanbul.com.t+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 13:02:41 by asobolev          #+#    #+#             */
-/*   Updated: 2026/05/08 09:12:49 by asobolev         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:56:16 by asobolev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LİNE_H
-# define GET_NEXT_LİNE_h
-#define BUFFER_SIZE 14
+# define GET_NEXT_LİNE_H
+#define BUFFER_SIZE 20
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>

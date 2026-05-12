@@ -6,7 +6,7 @@
 /*   By: asobolev <asobolev@student.42istanbul.com.t+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 13:02:29 by asobolev          #+#    #+#             */
-/*   Updated: 2026/05/08 09:20:39 by asobolev         ###   ########.fr       */
+/*   Updated: 2026/05/12 17:11:24 by asobolev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	a[i] = '\0';
 	return (a);
 }
+#include <stdio.h>
 char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
@@ -73,7 +74,7 @@ char	*ft_strchr(const char *s, int c)
 	}
 	if ((unsigned char)c == '\0')
 		return ((char *)s);
-	return (0);
+	return (NULL);
 }
 char	*ft_strjoin(char const *s1, char const *s2)
 {
