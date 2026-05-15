@@ -1,90 +1,97 @@
 #include "get_next_line.h"
 #include <stdio.h>
 
-int	conditioned_strlen(char *buff)
+int conditioned_strlen(char *buff)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (buff[i])
-	{
-		if (buff[i] == '\n')
-		{
-			i++;
-			break ;
-		}
-		if (buff[i] == '\0')
-			break ;
-		i++;
-	}
-	return (i);
+    i = 0;
+    while (buff[i])
+    {
+        if (buff[i] == '\n')
+        {
+            i++;
+            break;
+        }
+        i++;
+    }
+    return (i);
 }
-char	*get_next_line(int fd)
+char *get_next_line(int fd)
 {
-	char *tmp;
-	char		*buff;
-	int			readed;
-	static char	*storage;
+    char *tmp;
+    char *line;
+    char *buff;
+    int readed;
+    int len;
+    static char *storage;
 
-	if ((fd < 0) || BUFFER_SIZE < 1)
-		return (NULL);
-	buff = malloc(BUFFER_SIZE + 1);
-	if (!buff)
-		return (NULL);
-	readed = 1;
-	while (1)
-	{
-		readed = read(fd, buff, BUFFER_SIZE);
-		if (readed == -1)
-		{
-			free(buff);
-			return (NULL);
-		}
-		if (readed == 0)
-		{
-			// printf("---%s\n", storage);
-			// printf("---%s\n", buff);
-			return(NULL);
-			break ;
-		}
-		buff[readed] = '\0';
-		if (storage && ft_strchr(storage, '\n'))
-		{
-			tmp = ft_substr(storage, 0, conditioned_strlen(storage));
-            storage = ft_substr(storage, conditioned_strlen(storage), ft_strlen(storage));
-            return(tmp);
-		}
-		if (!storage)
-		{
-		    storage = ft_strdup(buff);
-		}
-	    else
-		{
-			tmp = ft_strjoin(storage,buff);
-			free(storage);
-			storage = tmp;
-		}
-		printf("---%s\n", storage);
-	}
-	return (ft_substr(storage, 0, conditioned_strlen(storage)));
+    if ((fd < 0) || BUFFER_SIZE < 1)
+        return (NULL);
+    buff = malloc(BUFFER_SIZE + 1);
+    if (!buff)
+        return (NULL);
+    readed = 1;
+    while (1)
+    {
+        readed = read(fd, buff, BUFFER_SIZE);
+        if (readed == -1)
+        {
+        free(buff);
+        free(storage);      
+        storage = NULL;
+        return (NULL);
+        }
+        if (readed == 0)
+        {
+            free(buff);
+            if (storage)
+            {
+                tmp = storage;
+                storage = NULL;
+                return tmp;
+            }
+            return (NULL);
+        }
+        buff[readed] = '\0';
+        if (!storage)
+        {
+            storage = ft_strdup(buff);
+        }
+        else
+        {
+            tmp = ft_strjoin(storage, buff);
+            free(storage);
+            storage = tmp;
+        }
+        if (storage && ft_strchr(storage, '\n'))
+        {
+            tmp = storage;
+            len = conditioned_strlen(tmp);
+            storage = ft_substr(tmp, len, ft_strlen(tmp));
+            line = ft_substr(tmp, 0, len);
+            free(tmp);
+            return line;
+        }
+    }
+    return (NULL);
 }
 
 #include "get_next_line.h"
 #include <fcntl.h>
-#include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	int		fd;
-	char	*str;
+    int fd;
+    char *str;
 
-	fd = open("main.c", O_RDONLY, 777);
-	str = get_next_line(fd);
-	while (str)
-	{
-		// printf("%s", str);
-		free(str);
-		str = get_next_line(fd);
-	}
-	close(fd);
+    fd = open("file.txt", O_RDONLY, 777);
+    str = get_next_line(fd);
+    while (str)
+    {
+        printf("%s", str);
+        free(str);
+        str = get_next_line(fd);
+    }
+    close(fd);
 }
