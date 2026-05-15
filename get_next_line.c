@@ -99,7 +99,7 @@ int main(void)
     int fd;
     char *str;
 
-    fd = open("file.txt", O_RDONLY, 777);
+    fd = open("main.c", O_RDONLY, 777);
     str = get_next_line(fd);
     while (str)
     {
