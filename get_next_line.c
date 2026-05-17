@@ -6,13 +6,13 @@
 /*   By: asobolev <asobolev@student.42istanbul.com.t+#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 03:30:13 by asobolev          #+#    #+#             */
-/*   Updated: 2026/05/17 03:48:46 by asobolev         ###   ########.fr       */
+/*   Updated: 2026/05/17 14:13:07 by asobolev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*cleanup_on_error(char *buff, char **storage)
+static char	*cleanup_error(char *buff, char **storage)
 {
 	free(buff);
 	free(*storage);
